@@ -12,14 +12,14 @@ using UtilityBot.Services;
 
 namespace UtilityBot.Utilities
 {
-    public class SymbolNumCounter : IFunction
+    public class SymbolNumCounter :IFunction
     {
         private readonly ITelegramBotClient _telegramBotClient;
         public SymbolNumCounter(ITelegramBotClient telegramBotClient)
         {
             _telegramBotClient = telegramBotClient;
         }
-
+       
         public string Count(Message message, string chosenFunction)
         {
             var text = message.Text;
@@ -30,27 +30,29 @@ namespace UtilityBot.Utilities
             }
             else if (chosenFunction == "numberCount")
             {
-                string[] words = text.Split(' ');
                 int sum = 0;
+                bool hasDigits = false; 
 
-                foreach (string word in words)
+                foreach (char character in text)
                 {
-                    if (int.TryParse(word, out int number))
+                    if (char.IsDigit(character))
                     {
-                        sum += number;
-                    }
-                    if (!int.TryParse(word, out int number2))
-                    {
-                        sum += number2;
-                        return "Введите число";
-
+                        sum += int.Parse(character.ToString());
+                        hasDigits = true; 
                     }
                 }
 
-                return sum.ToString();
+                if (hasDigits)
+                {
+                    return sum.ToString();
+                }
+                else
+                {
+                    return "Введите число"; 
+                }
             }
 
-            return "Неправильный формат";
+            return "Неправильный ввод"; 
         }
 
     }
