@@ -46,7 +46,7 @@ namespace UtilityBot.Controllers
                     await _telegramClient.SendTextMessageAsync(message.Chat.Id, $"<b> Привет. Данный бот имеет две функции: подсчёт количества символов в тексте и вычисление суммы чисел, " +
                         $"которые вы ему отправляете. Напрмер, в ответ на условное сообщение «сова летит» вы получите «в вашем сообщении 10 символов». " +
                         $"А в ответ на сообщение «2 3 15» вы получите «сумма чисел: 20»...</b> {Environment.NewLine}" +
-                        $"{Environment.NewLine}Можно записать сообщение и переслать другу, если лень печатать.{Environment.NewLine}", cancellationToken: ct, parseMode: ParseMode.Html, replyMarkup: new InlineKeyboardMarkup(buttons));
+                        $"{Environment.NewLine}Выберите функцию:{Environment.NewLine}", cancellationToken: ct, parseMode: ParseMode.Html, replyMarkup: new InlineKeyboardMarkup(buttons));
 
                     break;
 

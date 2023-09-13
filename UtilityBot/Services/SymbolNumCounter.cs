@@ -26,7 +26,7 @@ namespace UtilityBot.Utilities
 
             if (chosenFunction == "symbolCount")
             {
-                return $"Длина сообщения: {text.Length} знаков";
+                return $"В вашем сообщении {text.Length} знаков";
             }
             else if (chosenFunction == "numberCount")
             {
@@ -44,7 +44,7 @@ namespace UtilityBot.Utilities
 
                 if (hasDigits)
                 {
-                    return sum.ToString();
+                    return $"Cумма чисел: {sum.ToString()}";
                 }
                 else
                 {
