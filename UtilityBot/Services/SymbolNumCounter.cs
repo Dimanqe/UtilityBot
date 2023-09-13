@@ -42,6 +42,7 @@ namespace UtilityBot.Utilities
                     if (!int.TryParse(word, out int number2))
                     {
                         sum += number2;
+                        return "Введите число";
 
                     }
                 }
@@ -49,7 +50,7 @@ namespace UtilityBot.Utilities
                 return sum.ToString(); // Convert the sum to a string
             }
 
-            return "null";
+            return "Неправильный формат";
         }
 
     }
