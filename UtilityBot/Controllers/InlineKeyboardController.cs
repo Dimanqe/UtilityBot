@@ -15,9 +15,11 @@ namespace UtilityBot.Controllers
     {
 
         private readonly ITelegramBotClient _telegramClient;
-        public InlineKeyboardController(ITelegramBotClient telegramBotClient)
+        private readonly IStorage _memoryStorage;
+        public InlineKeyboardController(ITelegramBotClient telegramBotClient, IStorage memoryStorage)
         {
             _telegramClient = telegramBotClient;
+            _memoryStorage = memoryStorage;
         }
 
         public async Task Handle(CallbackQuery? callbackQuery, CancellationToken ct)
@@ -26,12 +28,12 @@ namespace UtilityBot.Controllers
                 return;
 
             // Обновление пользовательской сессии новыми данными
-
+            _memoryStorage.GetSession(callbackQuery.From.Id).ChosenFunction = callbackQuery.Data;
             // Генерим информационное сообщение
             string botFunction = callbackQuery.Data switch
             {
                 "symbolCount" => " Подсчёт количества символов",
-                "sumCount" => " Вычисление суммы чисел",
+                "numberCount" => " Вычисление суммы чисел",
                 _ => String.Empty
             };
 

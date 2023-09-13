@@ -9,7 +9,7 @@ using UtilityBot.Configuration;
 using UtilityBot.Controllers;
 using UtilityBot.Models;
 using UtilityBot.Services;
-
+using UtilityBot.Utilities;
 
 namespace UtilityBot
 {
@@ -31,7 +31,6 @@ namespace UtilityBot
             Console.WriteLine("Сервис остановлен");
         }
 
-
         static void ConfigureServices(IServiceCollection services)
         {
             AppSettings appSettings = BuildAppSettings();
@@ -40,7 +39,8 @@ namespace UtilityBot
             services.AddTransient<DefaultMessageController>();
             services.AddTransient<TextMessageController>();
             services.AddTransient<InlineKeyboardController>();
-
+            services.AddSingleton<IStorage, MemoryStorage>();
+            services.AddSingleton<IFunction, SymbolNumCounter>();
             services.AddSingleton<ITelegramBotClient>(provider => new TelegramBotClient(appSettings.BotToken));
             services.AddHostedService<Bot>();
         }
@@ -48,8 +48,7 @@ namespace UtilityBot
         {
             return new AppSettings()
             {
-                BotToken = "6695952004:AAEEwVz_RC3nP28ETFcUKQRMuXixBrqi-MU",
-                
+                BotToken = "6695952004:AAEEwVz_RC3nP28ETFcUKQRMuXixBrqi-MU",                
             };
         }
     }

@@ -14,6 +14,6 @@ namespace UtilityBot.Services
         /// <summary>
         /// Методы функций
         /// </summary>
-        string Count(Message message);
+        string  Count(Message message, string param);
     }
 }

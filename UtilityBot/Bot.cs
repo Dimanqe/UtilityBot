@@ -60,6 +60,7 @@ namespace UtilityBot
             // Обрабатываем входящие сообщения из Telegram Bot API: https://core.telegram.org/bots/api#message
             if (update.Type == UpdateType.Message)
             {
+
                 switch (update.Message!.Type)
                 {                  
                     case MessageType.Text:

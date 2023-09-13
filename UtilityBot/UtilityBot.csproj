@@ -174,8 +174,7 @@
     <Compile Include="Services\IFunction.cs" />
     <Compile Include="Services\IStorage.cs" />
     <Compile Include="Services\MemoryStorage.cs" />
-    <Compile Include="Services\NumberSumCounter.cs" />
-    <Compile Include="Services\SymbolCounter.cs" />
+    <Compile Include="Services\SymbolNumCounter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

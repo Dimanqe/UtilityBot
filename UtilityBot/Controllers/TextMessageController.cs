@@ -17,9 +17,14 @@ namespace UtilityBot.Controllers
     {
 
         private readonly ITelegramBotClient _telegramClient;
-        public TextMessageController(ITelegramBotClient telegramBotClient)
+        private readonly IStorage _memoryStorage;
+        private readonly IFunction _textFileHandler;
+        public TextMessageController(ITelegramBotClient telegramBotClient, IFunction textFileHandler, IStorage memoryStorage)
         {
             _telegramClient = telegramBotClient;
+            _textFileHandler = textFileHandler;
+            _memoryStorage = memoryStorage;
+
         }      
 
         public async Task Handle(Message message, CancellationToken ct)
@@ -34,7 +39,7 @@ namespace UtilityBot.Controllers
                     buttons.Add(new[]
                     {
                         InlineKeyboardButton.WithCallbackData($" Подсчёт количества символов" , $"symbolCount"),
-                        InlineKeyboardButton.WithCallbackData($" Вычисление суммы чисел" , $"sumCount")
+                        InlineKeyboardButton.WithCallbackData($" Вычисление суммы чисел" , $"numberCount")
                     });
 
                     // передаем кнопки вместе с сообщением (параметр ReplyMarkup)
@@ -47,8 +52,9 @@ namespace UtilityBot.Controllers
 
                 default:
 
-                    var chosenFunction =
-                    await _telegramClient.SendTextMessageAsync(message.Chat.Id, "Вы отправили сообщение", cancellationToken: ct);
+                    var chosenFunction = _memoryStorage.GetSession(message.Chat.Id).ChosenFunction;
+                    var result = _textFileHandler.Count(message, chosenFunction);
+                    await _telegramClient.SendTextMessageAsync(message.Chat.Id, result, cancellationToken: ct);
                     return;
             }
 

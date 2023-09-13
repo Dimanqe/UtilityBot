@@ -30,7 +30,7 @@ namespace UtilityBot.Services
                 return _sessions[chatId];
 
             // Создаем и возвращаем новую, если такой не было
-            var newSession = new Session() { ChosenFunction = "symbolCount" };
+            var newSession = new Session() { ChosenFunction = "numberCount" };
             _sessions.TryAdd(chatId, newSession);
             return newSession;
         }

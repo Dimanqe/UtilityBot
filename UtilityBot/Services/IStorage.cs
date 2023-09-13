@@ -7,7 +7,7 @@ using UtilityBot.Models;
 
 namespace UtilityBot.Services
 {
-    internal interface IStorage
+    public interface IStorage
     {
         Session GetSession(long chatId);
     }
