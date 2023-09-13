@@ -47,7 +47,7 @@ namespace UtilityBot.Utilities
                     }
                 }
 
-                return sum.ToString(); // Convert the sum to a string
+                return sum.ToString();
             }
 
             return "Неправильный формат";
