@@ -19,6 +19,7 @@ namespace UtilityBot.Utilities
         {
             _telegramBotClient = telegramBotClient;
         }
+
         public string Count(Message message, string chosenFunction)
         {
             var text = message.Text;
@@ -27,24 +28,28 @@ namespace UtilityBot.Utilities
             {
                 return $"Длина сообщения: {text.Length} знаков";
             }
-
             else if (chosenFunction == "numberCount")
             {
+                string[] words = text.Split(' ');
                 int sum = 0;
-                foreach (char character in text)
+
+                foreach (string word in words)
                 {
-                    if (char.IsDigit(character))
+                    if (int.TryParse(word, out int number))
                     {
-                        sum += int.Parse(character.ToString());
+                        sum += number;
                     }
-                    else
+                    if (!int.TryParse(word, out int number2))
                     {
-                        return "Введите число";
+                        sum += number2;
+
                     }
                 }
-                return sum.ToString(); 
+
+                return sum.ToString(); // Convert the sum to a string
             }
-            return "Введено не число";
+
+            return "null";
         }
 
     }
